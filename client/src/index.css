@@ -21,3 +21,161 @@ img{
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
+
+/* loading animation */
+
+
+:root {
+    --width-square: 12px;
+  }
+  * {
+    margin: 0;
+    padding: 0;
+  }
+  
+  .animation-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .animation-container .square {
+    position: relative;
+    width: 30vw;
+    height: 30vw;
+    max-width: 70px;
+    max-height: 70px;
+    min-width: 40px;
+    min-height: 40px;
+  }
+  .animation-container .square .line {
+    background-color: blue;
+    position: absolute;
+    animation: animate-one 1.5s linear infinite;
+  }
+  .animation-container .square .line.line-x {
+    width: var(--width-square);
+    height: 100%;
+    top: 0;
+  }
+  .animation-container .square .line.line-y {
+    width: 100%;
+    height: var(--width-square);
+    left: 0;
+  }
+  
+  .animation-container .square .line.one {
+    left:0;
+    transform-origin: left top;
+  }
+  .animation-container .square .line.two {
+    top: 0;
+    transform-origin: right top;
+  }
+  .animation-container .square .line.three {
+    right: 0;
+    transform-origin: right bottom;
+  }
+  .animation-container .square .line.four {
+    bottom: 0;
+    transform-origin: left bottom;
+  }
+  
+  @keyframes animate-one {
+    0% {
+      transform: rotate(0deg);
+    }
+    50%, 100% {
+      transform: rotate(360deg);
+    }
+  }
+
+
+
+  /* error for error message */
+
+
+:root{
+  --color-red: #f86;
+  --circle-size: 60px;
+}
+
+
+
+.error-container {
+  background-color: white;
+  height: 440px;
+  width: 275px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 2px 10px 10px rgba(#000, 0.05);
+}
+
+.circle,
+.circle-border {
+  width: --circle-size;
+  height: --circle-size;
+  border-radius: 50%;
+}
+
+.circle {
+  z-index: 1;
+  position: relative;
+  background: white;
+  transform: scale(1);
+  animation: success-anim 700ms ease;
+}
+
+.circle-border {
+  z-index: 0;
+  position: absolute;
+  transform: scale(1.1);
+  animation: circle-anim 400ms ease;
+  background: --color-red;	
+}
+
+@keyframes success-anim {
+  0% {
+    transform: scale(0);
+  }
+  30% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes circle-anim {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1.1);
+  }
+}
+
+.error::before,
+.error::after {
+  content: "";
+  display: block;
+  height: 4px;
+  background: --color-red;
+  position: absolute;
+}
+
+.error::before {
+  width: 40px;
+  top: 48%;
+  left: 16%;
+  transform: rotateZ(50deg);
+}
+
+.error::after {
+  width: 40px;
+  top: 48%;
+  left: 16%;
+  transform: rotateZ(-50deg);
+}

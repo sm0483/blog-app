@@ -12,7 +12,7 @@ const NavBar = () => {
                 <span className="navbar-toggler-icon"></span>
                 </button>
 
-                <Link class="navbar-brand" to="#">
+                <Link className="navbar-brand" to="#">
                     <img src={test} alt="Bootstrap" width="30" height="24"/>
                     blogSpot
                 </Link>
@@ -31,7 +31,7 @@ const NavBar = () => {
                         </li>
                     </ul>
                 </div>
-                <Link type="button" class="btn btn-primary login-button" to='/login'>Login</Link>
+                <Link type="button" className="btn btn-primary login-button" to='/login'>Login</Link>
             </div>
         </nav>
     );

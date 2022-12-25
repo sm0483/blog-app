@@ -1,20 +1,14 @@
 import Card from './Card';
 
-const Main = () => {
+const Main = ({blogData}) => {
     return (
         <div className="container">
             <div className="row  gx-5 ">
-                <Card/>
-                <Card/>
-                <Card/>
-                <Card/>
-                <Card/>
-                <Card/>
-                <Card/>
-                <Card/>
-                <Card/>
-                <Card/>
-                <Card/>
+                {
+                    blogData.map((data,index)=>{
+                        return <Card data={data} key={index}/> 
+                    })
+                }
           </div>
         </div>
     );
