@@ -14,7 +14,8 @@ const Input = () => {
             const data={
                 blogTitle:title,
                 blogData,
-                authorId:"5cabe64dcf0d4447fa60f5e2"
+                authorId:"5cabe64dcf0d4447fa60f5e2",
+                authorName:"mr rave"
             }
             const response=await createBlog(data);
             if(response.status === 200){

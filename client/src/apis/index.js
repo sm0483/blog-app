@@ -12,5 +12,7 @@ const api = axios.create({
   
 export const createBlog=(data)=>api.post("/blog/create",data);
 export  const getAllBlog=()=>api.get("/blog/all");
+export const getBlogById=(id)=>api.get(`/blog/${id}`);
+
 
 

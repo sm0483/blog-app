@@ -17,7 +17,8 @@ const reducer=(state,action)=>{
         case ACTIONS.SUCCESS:
             return{
                 ...state,
-                loading:false
+                loading:false,
+                data:action.data
             };
         case ACTIONS.ERROR:
             return{

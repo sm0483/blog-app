@@ -1,8 +1,9 @@
 import test from '../../assets/icon.jpg'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Card = ({data}) => {
-    const {blogData="cat",blogTitle="fish",authorId="0483"}=data;
+    const {blogData="cat",blogTitle="fish",authorId="0483",_id:id}=data;
+    const navigate=useNavigate();
     return (
         <div className="col-sm col-md-6 col-lg-3 mt-4">
             <div className="card single-card">
@@ -12,7 +13,9 @@ const Card = ({data}) => {
                     <p className="card-text text-truncate">
                         {blogData}
                         </p>
-                    <Link to="/article" className="btn btn-primary">Read More</Link>
+                    <button className="btn btn-primary"
+                    onClick={()=>navigate(`/article/${id}`)}
+                    >Read More</button>
                 </div>
             </div>
         </div>
