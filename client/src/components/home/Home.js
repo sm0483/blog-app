@@ -22,21 +22,31 @@ const Home = () => {
 
     useEffect(()=>{
         dispatch({ type: ACTIONS.CALL_API });
-        const getData=async()=>{
-            const response=await getAllBlog();
-            if (response.status === 200) {
-                dispatch({ type: ACTIONS.SUCCESS, data: response.data });
-                setBlogData(response.data);
-                return;
+        let isActive = true;
+        try{
+            const getData=async()=>{
+                const response=await getAllBlog();
+                if (response.status === 200) {
+                    dispatch({ type: ACTIONS.SUCCESS, data: response.data });
+                    setBlogData(response.data);
+                    return;
+                }
+    
+                console.log(response);
+    
+                dispatch({ type: ACTIONS.ERROR, error: response.error });
+    
             }
-
-            console.log(response);
-
-            dispatch({ type: ACTIONS.ERROR, error: response.error });
-
+    
+            getData();
+    
+    
+        }catch(err){
+            console.log(err);
         }
-
-        getData();
+        return () => {
+            isActive = false;
+        };
     },[])
 
     return (

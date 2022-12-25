@@ -179,3 +179,31 @@ img{
   left: 16%;
   transform: rotateZ(-50deg);
 }
+
+
+
+/* saved message pop */
+
+
+
+.success-msg {
+  color: #270;
+  background-color: #DFF2BF;
+}
+
+
+.success-msg{
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 3px 3px 3px 3px;
+}
+
+.save-message-container{
+  position: fixed;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+}
+
+
+
