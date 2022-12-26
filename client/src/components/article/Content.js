@@ -1,7 +1,6 @@
 import { useEffect, useReducer,  } from 'react';
 import { useParams } from 'react-router-dom';
 import { getBlogById } from '../../apis';
-import test from '../../assets/icon.jpg'
 import { reducer,ACTIONS} from '../../helper/Helper';
 import Credit from '../common/Creadit';
 import Head from '../common/Head';
@@ -22,7 +21,7 @@ const Content = () => {
 
     const [state,dispatch]=useReducer(reducer,initState);
     const {data,error,loading}=state;
-    const {authorName,blogData,blogTitle,authorId}=data;
+    const {authorName,blogData,blogTitle,authorId,imageUrl}=data;
 
 
 
@@ -62,7 +61,7 @@ const Content = () => {
                     (
                     <div className="row">
                     <div className="col-lg-6 col-sm-1 article-image-container">
-                        <img src={test} className='img-fluid w-100' alt="article" />
+                        <img src={imageUrl} className='img-fluid w-100' alt="article" />
                     </div>
                     <div className="col-lg-6 col-sm-1">
                     <Head title={blogTitle}/>

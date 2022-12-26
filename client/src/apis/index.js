@@ -5,7 +5,10 @@ const api = axios.create({
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json; charset=utf-8",
+      "Content-Type": "multipart/form-data"
     },
+
+
   });
 
 

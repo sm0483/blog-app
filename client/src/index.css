@@ -205,5 +205,14 @@ img{
 
 }
 
+.card-image-container{
+  height: 200px;
+}
+
+.card-image-container img{
+  height: 100%;
+  width: 100%;
+}
+
 
 
