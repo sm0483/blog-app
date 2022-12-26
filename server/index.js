@@ -39,22 +39,53 @@ const corsOptions = {
   "Access-Control-Request-Headers": "*",
 };
 
-const userRouter = require("./routes/userRoute")
+const blogRoute = require("./routes/blogRoute");
+const errorHandler = require("./middleware/err");
+const pageNotFound = require("./middleware/pageNotFound");
+const { urlencoded } = require("express");
+
+
+
+app.use(fileUpload({
+  useTempFiles:true,
+  limits: { fileSize: 50 * 1024 * 1024 },
+}));
+
+
+
 
 app.use(cors(corsOptions));
-
 app.use(express.json());
 
-app.get('/api/v1/', auth, (req, res) => {
-  return res.status(200).json({ message: "authenticated" })
-})
+// app.get('/api/v1/', auth, (req, res) => {
+//   return res.status(200).json({ message: "authenticated" })
+// })
 
-app.use("/user", userRouter)
-app.use("/admin", require("./routes/adminRoute"))
-app.use("/common", require("./routes/commonRoute"))
-// app.use("/admin",)
-// app.use("/user")
-// app.use(require("./middleware/errorHandler"));
+
+
+
+const start=async()=>{
+  try{
+      const connect= await connectDb(process.env.MONGO_URI);
+      console.log('connected---');
+  }catch(err){
+      console.log(err);
+  }
+
+}
+
+start();
+
 const port = process.env.PORT || 5000;
 
 app.listen(port, () => console.log(`http://127.0.0.1:${port}`));
+
+
+
+// app.use("/api/v1/",);
+app.use("/blog",blogRoute);
+
+
+app.use(errorHandler);
+app.use(pageNotFound);
+
