@@ -5,7 +5,7 @@ import { reducer,ACTIONS} from '../../helper/Helper';
 import Credit from '../common/Creadit';
 import Head from '../common/Head';
 import Loading from '../common/Loading';
-import Error from '../common/Error';
+import Save from '../common/Saved';
 
 
 
@@ -21,7 +21,7 @@ const Content = () => {
 
     const [state,dispatch]=useReducer(reducer,initState);
     const {data,error,loading}=state;
-    const {authorName,blogData,blogTitle,authorId,imageUrl}=data;
+    const {authorName,blogData,blogTitle,imageUrl}=data;
 
 
 
@@ -36,15 +36,13 @@ const Content = () => {
                 dispatch({ type: ACTIONS.SUCCESS, data: response.data });
                 console.log(response.data);
             } catch (error) {
-                dispatch({ type: ACTIONS.ERROR, error});
+                dispatch({ type: ACTIONS.ERROR, error:error.message});
                 console.log(error);
             }
          
         }
 
         getBlog();
-
-
 
         return ()=>{
             isActive=false;
@@ -57,7 +55,12 @@ const Content = () => {
             <div className="container p-2 article-content mt-5">
                 {
                     loading ? (<Loading/>):
-                    error ? (<Error/>) :
+                    error ? (
+                        <div className="d-flex justify-content-center">
+                    <Save message={error} flag={ACTIONS.ERROR}/>
+                    </div>
+                    
+                    ) :
                     (
                     <div className="row">
                     <div className="col-lg-6 col-sm-1 article-image-container">

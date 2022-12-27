@@ -4,7 +4,7 @@ import { getAllBlog } from "../../apis";
 import { useEffect, useReducer } from "react";
 import {reducer,ACTIONS} from "../../helper/Helper";
 import Loading from "../common/Loading";
-import Error from "../common/Error";
+import Save from "../common/Saved";
 
 
 
@@ -33,7 +33,7 @@ const Home = () => {
                 console.log(response);
             }catch(err){
                 console.log(err);
-                dispatch({ type: ACTIONS.ERROR, error: err});
+                dispatch({ type: ACTIONS.ERROR, error: err.message});
             }
     
             }
@@ -56,9 +56,11 @@ const Home = () => {
         {
             loading ? (
                 <Loading/>
-            ):error ?
-            (
-                <Error/>
+            ):  error ?
+            ( <div className="container pt-5 
+                save-message-container d-flex justify-content-center">
+                <Save message={error} flag={ACTIONS.ERROR}/>
+                </div>
             ) : (
                 <Main blogData={data}/>
             )

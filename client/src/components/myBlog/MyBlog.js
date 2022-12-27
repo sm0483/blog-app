@@ -3,8 +3,8 @@ import { getBlogByAuthorId } from "../../apis";
 import { reducer,ACTIONS } from "../../helper/Helper";
 import { useReducer,useEffect } from "react";
 import Loading from "../common/Loading";
-import Error from "../common/Error";
 import Blogs from "./Blogs";
+import Save from "../common/Saved";
 
 
 
@@ -36,9 +36,10 @@ const MyBlog = () => {
                     return;
                 }
                 console.log(response);
+                dispatch({ type: ACTIONS.ERROR, error: response.error});
             }catch(err){
                 console.log(err);
-                dispatch({ type: ACTIONS.ERROR, error: err});
+                dispatch({ type: ACTIONS.ERROR, error: err.message});
             }
     
             }
@@ -60,7 +61,9 @@ const MyBlog = () => {
                 <Loading/>
             ):error ?
             (
-                <Error/>
+                <div className="container pt-5 save-message-container d-flex justify-content-center">
+                <Save message={error} flag={ACTIONS.ERROR}/>
+                </div>
             ) : (
                 <Blogs blogData={data}/>
             )
