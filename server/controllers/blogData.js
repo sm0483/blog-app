@@ -18,6 +18,7 @@ const createBlog=asyncWrapper(async(req,res)=>{
 
 
 const getBlogById=asyncWrapper(async(req,res)=>{
+    console.log(req.body);
     const {id}=req.params;
     const response=await Blog.findById(id);
     if(!response) throw new CustomError("Data not found",StatusCodes.NOT_FOUND);
@@ -26,11 +27,32 @@ const getBlogById=asyncWrapper(async(req,res)=>{
 
 
 const getBlogByAuthorId=asyncWrapper(async(req,res)=>{
-    
+    const {userId:authorId}=req.body;
+    console.log(authorId);
+    const response=await Blog.find({authorId});
+    if(!response){
+        res.status(StatusCodes.OK).json({
+            message:"You have no article present"
+        })
+        return;
+    }
+    res.status(StatusCodes.OK).json(response);
 })
+
+
+const editBlog=asyncWrapper(async(req,res)=>{
+    const {id:_id}=req.params;
+    const updatedData=await Blog.findOneAndUpdate({_id},req.body,{runValidators:true,new:true});
+    console.log(updatedData);
+    res.status(StatusCodes.OK).json(updatedData);
+})
+
+
 
 module.exports={
     getAllData,
     createBlog,
-    getBlogById
+    getBlogById,
+    getBlogByAuthorId,
+    editBlog
 }

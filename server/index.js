@@ -44,7 +44,6 @@ const corsOptions = {
 const blogRoute = require("./routes/blogRoute");
 const errorHandler = require("./middleware/err");
 const pageNotFound = require("./middleware/pageNotFound");
-const { urlencoded } = require("express");
 
 
 
@@ -88,6 +87,6 @@ app.listen(port, () => console.log(`http://127.0.0.1:${port}`));
 app.use("/blog",blogRoute);
 
 
-app.use(errorHandler);
-app.use(pageNotFound);
+// app.use(errorHandler);
+// app.use(pageNotFound);
 

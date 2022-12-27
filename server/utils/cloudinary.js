@@ -6,7 +6,7 @@ const cloudinay=require('cloudinary');
 const  uploadFile=async(req)=>{
     try {
         const file=req.files.image;
-    const result=await cloudinay.uploader.upload(file.tempFilePath,{
+        const result=await cloudinay.uploader.upload(file.tempFilePath,{
         public_id:`${Date.now()}`,
         resource_type:"auto",
         folder:"images"
