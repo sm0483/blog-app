@@ -1,8 +1,10 @@
 import { useReducer, useState } from 'react';
-import { createBlog } from '../../apis';
+import { useParams } from 'react-router-dom';
+import { editBlog ,getBlogById} from '../../apis';
 import { reducer ,ACTIONS} from '../../helper/Helper';
 import Loading from '../common/Loading';
 import Save from '../common/Saved';
+import { useEffect } from 'react';
 
 
 const initState={
@@ -13,26 +15,59 @@ const initState={
 
 
 
-const Input = () => {
+const EditInput=() => {
     const [title,setTitle]=useState("");
     const [blogData,setBlogData]=useState("");
     const [image,setImage]=useState("");
 
     const [status,setStatus]=useState(false);
 
+
+
+
+    const {id}=useParams();
+
     const [state,dispatch]=useReducer(reducer,initState);
-    const {data,loading,error}=state;
+    const {data,error,loading}=state;
+    // const {authorName,blogData,blogTitle,authorId,imageUrl}=data;
 
 
-    const saveData=async()=>{
+
+
+
+    useEffect(()=>{
+        dispatch({ type: ACTIONS.CALL_API });
+        let isActive=true;
+        const getBlog=async()=>{
+            try {
+                const response=await getBlogById(id);
+                dispatch({ type: ACTIONS.SUCCESS, data: response.data });
+                console.log(response.data);
+                setTitle(response.data.blogTitle);
+                setBlogData(response.data.blogData);
+
+            } catch (error) {
+                dispatch({ type: ACTIONS.ERROR, error});
+                console.log(error);
+            }
+         
+        }
+
+        isActive && getBlog();
+
+
+
+        return ()=>{
+            isActive=false;
+        }
+
+    },[])
+
+
+    const editData=async()=>{
         try {
             dispatch({ type: ACTIONS.CALL_API });
-            console.log(image);
-            const formData=new FormData();
-            formData.append("image",image);
-            console.log(formData.get("image"));
-
-
+            console.log(title);
             const data={
                 "blogTitle":title,
                 blogData,
@@ -44,7 +79,7 @@ const Input = () => {
             console.log(data)
 
 
-            const response=await createBlog(data);
+            const response=await editBlog(id,data);
             if(response.status === 200){
                 setStatus(true);
                 setTitle("");
@@ -105,8 +140,8 @@ const Input = () => {
                 </div>
                 <div className="mb-3">
                     <button className="btn btn-primary"
-                    onClick={saveData}
-                    >Save</button>
+                    onClick={editData}
+                    >Edit</button>
                 </div>
             </div>
 
@@ -122,4 +157,4 @@ const Input = () => {
     );
 }
  
-export default Input;
+export default EditInput;

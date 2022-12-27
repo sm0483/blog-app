@@ -27,7 +27,7 @@ const Home = () => {
                 const response=await getAllBlog();
                 if (response.status === 200) {
                     dispatch({ type: ACTIONS.SUCCESS, data: response.data });
-                    console.log(response.data)
+                    console.log(response)
                     return;
                 }
                 console.log(response);
