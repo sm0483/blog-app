@@ -1,10 +1,12 @@
 import { useReducer, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { editBlog ,getBlogById} from '../../apis';
-import { reducer ,ACTIONS} from '../../helper/Helper';
+import { reducer ,ACTIONS, MESSAGE} from '../../helper/Helper';
 import Loading from '../common/Loading';
 import Save from '../common/Saved';
 import { useEffect } from 'react';
+import { deleteBlog } from '../../apis';
+
 
 
 const initState={
@@ -19,9 +21,20 @@ const EditInput=() => {
     const [title,setTitle]=useState("");
     const [blogData,setBlogData]=useState("");
     const [image,setImage]=useState("");
+    const navigate=useNavigate();
 
     const [status,setStatus]=useState(false);
+    const [errorButton,setErrorButton]=useState(false);
 
+    const handleDelete=async(id)=>{
+        try {
+            const response=await deleteBlog(id);
+            navigate("/my-blog");
+        } catch (error) {
+            dispatch({ type: ACTIONS.ERROR, error});
+
+        }
+    }
 
 
 
@@ -48,6 +61,7 @@ const EditInput=() => {
 
             } catch (error) {
                 dispatch({ type: ACTIONS.ERROR, error});
+                setErrorButton(true);
                 console.log(error);
             }
          
@@ -65,6 +79,11 @@ const EditInput=() => {
 
 
     const editData=async()=>{
+        if(!title || !blogData ){
+            dispatch({ type: ACTIONS.ERROR, error:MESSAGE.error.fieldEmpty});
+            setErrorButton(true);
+            return;
+        }
         try {
             dispatch({ type: ACTIONS.CALL_API });
             console.log(title);
@@ -74,7 +93,7 @@ const EditInput=() => {
                 "authorId":"5cabe64dcf0d4447fa60f5e1",
                 "authorName":"mr rave",
                 image
-                }
+            }
 
             console.log(data)
 
@@ -88,12 +107,13 @@ const EditInput=() => {
                 console.log(response.data);
                 dispatch({ type: ACTIONS.SUCCESS, data: response.data });
 
-                
             } 
             console.log(response)
         } catch (error) {
             console.log(error);
             dispatch({ type: ACTIONS.ERROR, error});
+            setErrorButton(true);
+
 
         }
     }
@@ -101,17 +121,28 @@ const EditInput=() => {
 
     return (
         <>
-            { status && (
+            { status ? (
             <div className="container pt-5 save-message-container d-flex justify-content-center"
                 onMouseDown={()=>setStatus(false)}
             >
-                <Save />
-            </div>)}
+                <Save message={MESSAGE.success.savedData} flag={ACTIONS.SUCCESS}/>
+            </div>)
 
-            {
-                loading ?(<Loading/>) :(
+            
+                : errorButton  ? (
+                    <div className="container pt-5 save-message-container d-flex 
+                    justify-content-center"
+                        onMouseDown={()=>setErrorButton(false)}
+                    >
+                    <Save message={MESSAGE.error.fieldEmpty} flag={ACTIONS.ERROR}/>
+                    </div>
+                ):
+            
 
-                    <div className="container pt-5">
+            
+            loading ? (<Loading/>) :(
+
+            <div className="container pt-5">
 
                 <div className="mb-3">
                     <label htmlFor="exampleFormControlInput1" className="form-label h4">Title</label>
@@ -138,11 +169,17 @@ const EditInput=() => {
                     onChange={(e)=>setBlogData(e.target.value)}
                     />
                 </div>
-                <div className="mb-3">
+                <div className="mb-3 d-flex justify-content-between">
                     <button className="btn btn-primary"
                     onClick={editData}
                     >Edit</button>
+
+                    <button className="btn btn-primary"
+                            onClick={()=>handleDelete(id)}
+                        >Delete</button>
                 </div>
+
+          
             </div>
 
 

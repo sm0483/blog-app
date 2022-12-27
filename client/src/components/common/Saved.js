@@ -1,8 +1,12 @@
-const Save = () => {
+import { ACTIONS } from "../../helper/Helper";
+
+const Save = ({message,flag}) => {
+    // "success-msg w-50 d-flex justify-content-center"
     return ( 
-        <div className="success-msg w-50 d-flex justify-content-center">
+        <div className={`${flag===ACTIONS.SUCCESS ? "success-msg " : "error-msg"}
+         d-flex w-50  justify-content-center`}>
             <i className="fa fa-check"></i>
-            This is a success message.
+            {message}
         </div>
     );
 }

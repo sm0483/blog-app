@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 const EditCard = ({data}) => {
     const {blogData="cat",blogTitle="fish",authorId="0483",_id:id,imageUrl}=data;
+
     
     const navigate=useNavigate();
     return (
@@ -18,15 +19,9 @@ const EditCard = ({data}) => {
                     <p className="card-text text-truncate">
                         {blogData}
                         </p>
-                        <div className='d-flex justify-content-between'>
-                            <button className="btn btn-primary"
-                            onClick={()=>navigate(`/edit/${id}`)}
-                            >Edit</button>
-
-                            <button className="btn btn-primary"
-                            onClick={()=>navigate(`/edit/${id}`)}
-                            >Delete</button>
-                    </div>
+                        <button className="btn btn-primary"
+                        onClick={()=>navigate(`/edit/${id}`)}
+                        >Edit</button>
                 </div>
             </div>
         </div>

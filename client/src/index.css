@@ -191,6 +191,11 @@ img{
   background-color: #DFF2BF;
 }
 
+.error-msg{
+  color: hsl(0, 97%, 47%);
+  background-color:hsl(0, 59%, 77%);
+}
+
 
 .success-msg{
   margin: 10px 0;

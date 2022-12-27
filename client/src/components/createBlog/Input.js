@@ -1,6 +1,6 @@
 import { useReducer, useState } from 'react';
 import { createBlog } from '../../apis';
-import { reducer ,ACTIONS} from '../../helper/Helper';
+import { reducer ,ACTIONS, MESSAGE} from '../../helper/Helper';
 import Loading from '../common/Loading';
 import Save from '../common/Saved';
 
@@ -22,17 +22,19 @@ const Input = () => {
 
     const [state,dispatch]=useReducer(reducer,initState);
     const {data,loading,error}=state;
+    const [errorButton,setErrorButton]=useState(false);
+
 
 
     const saveData=async()=>{
         try {
+            if(!image || !title || !blogData) {
+                dispatch({ type: ACTIONS.ERROR, error:MESSAGE.error.fieldEmpty});
+                setErrorButton(true);
+
+                return;
+            }
             dispatch({ type: ACTIONS.CALL_API });
-            console.log(image);
-            const formData=new FormData();
-            formData.append("image",image);
-            console.log(formData.get("image"));
-
-
             const data={
                 "blogTitle":title,
                 blogData,
@@ -59,6 +61,7 @@ const Input = () => {
         } catch (error) {
             console.log(error);
             dispatch({ type: ACTIONS.ERROR, error});
+            setErrorButton(true);
 
         }
     }
@@ -66,14 +69,26 @@ const Input = () => {
 
     return (
         <>
-            { status && (
+            { status ? (
             <div className="container pt-5 save-message-container d-flex justify-content-center"
                 onMouseDown={()=>setStatus(false)}
             >
-                <Save />
-            </div>)}
+                <Save message={MESSAGE.success.savedData} flag={ACTIONS.SUCCESS}/>
+            </div>):
 
-            {
+            
+                errorButton ? (
+                    <div className="container pt-5 save-message-container 
+                    d-flex justify-content-center"
+                    onMouseDown={()=>setErrorButton(false)}
+                    >
+                    <Save message={error} flag={ACTIONS.ERROR}/>
+                    </div>
+                ):
+            
+
+
+            
                 loading ?(<Loading/>) :(
 
                     <div className="container pt-5">

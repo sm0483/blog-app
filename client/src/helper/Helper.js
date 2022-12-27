@@ -4,6 +4,15 @@ const ACTIONS = {
     ERROR: 'error',
 };
 
+const MESSAGE={
+    error:{
+        fieldEmpty:"Field can't be empty.."
+    },
+    success:{
+        savedData:"Data Successfully saved.."
+    }
+}
+
 
 
 const reducer=(state,action)=>{
@@ -33,6 +42,6 @@ const reducer=(state,action)=>{
 }
 
 
-export {reducer,ACTIONS};
+export {reducer,ACTIONS,MESSAGE};
 
 
