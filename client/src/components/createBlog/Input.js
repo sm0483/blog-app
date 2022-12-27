@@ -3,6 +3,7 @@ import { createBlog } from '../../apis';
 import { reducer ,ACTIONS, MESSAGE} from '../../helper/Helper';
 import Loading from '../common/Loading';
 import Save from '../common/Saved';
+import { useNavigate } from 'react-router-dom';
 
 
 const initState={
@@ -21,8 +22,9 @@ const Input = () => {
     const [status,setStatus]=useState(false);
 
     const [state,dispatch]=useReducer(reducer,initState);
-    const {data,loading,error}=state;
+    const {loading,error}=state;
     const [errorButton,setErrorButton]=useState(false);
+    const navigate=useNavigate();
 
 
 
@@ -31,7 +33,6 @@ const Input = () => {
             if(!image || !title || !blogData) {
                 dispatch({ type: ACTIONS.ERROR, error:MESSAGE.error.fieldEmpty});
                 setErrorButton(true);
-
                 return;
             }
             dispatch({ type: ACTIONS.CALL_API });
@@ -67,11 +68,17 @@ const Input = () => {
     }
 
 
+    const saveNavigate=()=>{
+        setStatus(false);
+        navigate("/my-blog");
+    }
+
+
     return (
         <>
             { status ? (
             <div className="container pt-5 save-message-container d-flex justify-content-center"
-                onMouseDown={()=>setStatus(false)}
+                onMouseDown={saveNavigate}
             >
                 <Save message={MESSAGE.success.savedData} flag={ACTIONS.SUCCESS}/>
             </div>):

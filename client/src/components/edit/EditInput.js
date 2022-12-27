@@ -28,7 +28,7 @@ const EditInput=() => {
 
     const handleDelete=async(id)=>{
         try {
-            const response=await deleteBlog(id);
+            await deleteBlog(id);
             navigate("/my-blog");
         } catch (error) {
             dispatch({ type: ACTIONS.ERROR, error});
@@ -41,7 +41,7 @@ const EditInput=() => {
     const {id}=useParams();
 
     const [state,dispatch]=useReducer(reducer,initState);
-    const {data,error,loading}=state;
+    const {error,loading}=state;
     // const {authorName,blogData,blogTitle,authorId,imageUrl}=data;
 
 
@@ -119,11 +119,17 @@ const EditInput=() => {
     }
 
 
+    const saveNavigate=()=>{
+        setStatus(false);
+        navigate("/my-blog");
+    }
+
+
     return (
         <>
             { status ? (
             <div className="container pt-5 save-message-container d-flex justify-content-center"
-                onMouseDown={()=>setStatus(false)}
+                onMouseDown={saveNavigate}
             >
                 <Save message={MESSAGE.success.savedData} flag={ACTIONS.SUCCESS}/>
             </div>)
@@ -134,7 +140,7 @@ const EditInput=() => {
                     justify-content-center"
                         onMouseDown={()=>setErrorButton(false)}
                     >
-                    <Save message={MESSAGE.error.fieldEmpty} flag={ACTIONS.ERROR}/>
+                    <Save message={error} flag={ACTIONS.ERROR}/>
                     </div>
                 ):
             
