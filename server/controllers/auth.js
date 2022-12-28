@@ -33,12 +33,15 @@ const registerUser=asyncWrapper(async(req,res)=>{
 
 
 const loginUser=asyncWrapper(async(req,res)=>{
+    console.log(req.body);
     const {email,password}=req.body;
     if(!email || !password) throw new CustomError("Invalid Credential",StatusCodes.FORBIDDEN);
     const user = await User.findOne({ email });
+    console.log(user);
     if(!user) throw new CustomError("Invalid Credential",StatusCodes.FORBIDDEN);
     const isValid=await user.comparePassword(password);
-    if(isValid) throw new CustomError("Invalid Credential",StatusCodes.FORBIDDEN);
+    console.log(isValid);
+    if(!isValid) throw new CustomError("Invalid Credential",StatusCodes.FORBIDDEN);
     const id=user._id.toString();
     const accessToken=createJwt({id},"accessToken");
     attachCookieToResponse(res,{id});

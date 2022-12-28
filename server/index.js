@@ -38,8 +38,8 @@ const corsOptions = {
   credentials: true, //access-control-allow-credentials:true
   optionSuccessStatus: 200,
   methods: ["GET", "POST", "DELETE", "UPDATE", "PUT", "PATCH"],
-  allowedHeaders: "*",
-  "Access-Control-Request-Headers": "*",
+  // allowedHeaders: "*",
+  // "Access-Control-Request-Headers": "*",
 };
 
 
@@ -59,7 +59,7 @@ app.use(fileUpload({
 
 
 
-// app.use(cors(corsOptions));
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser(process.env.COOKIE));
 

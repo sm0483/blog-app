@@ -5,7 +5,7 @@ const router=express.Router();
 
 router.route('/auth/register').post(registerUser);
 router.route('/auth/login').post(loginUser);
-router.route('/auth/get-refreshToken').get(getAccessToken);
+router.route('/auth/get-accessToken').get(getAccessToken);
 
 
 
