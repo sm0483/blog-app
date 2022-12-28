@@ -47,6 +47,13 @@ const editBlog=asyncWrapper(async(req,res)=>{
     res.status(StatusCodes.OK).json(updatedData);
 })
 
+const deleteBlog=asyncWrapper(async(req,res)=>{
+    const {id:_id}=req.params;
+    const response=await Blog.findOneAndDelete({_id});
+    res.status(StatusCodes.OK).json(response);
+
+})
+
 
 
 module.exports={
@@ -54,5 +61,6 @@ module.exports={
     createBlog,
     getBlogById,
     getBlogByAuthorId,
-    editBlog
+    editBlog,
+    deleteBlog
 }
