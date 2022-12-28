@@ -219,5 +219,21 @@ img{
   width: 100%;
 }
 
+.register-container{
+  height: 100vh;
+  padding-top: 15rem;
+}
+
+.register-box{
+  padding: 1rem;
+  min-width: 25%;
+  max-width: 25rem;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  border-radius: 0.7rem;
+}
+
+.register-box label{
+  font-size: 1.2rem;
+}
 
 
