@@ -6,8 +6,9 @@ const root_dir = __dirname.split('src')[0]
 dotenv.config({ path: path.join(root_dir, `.env`) });
 const cors = require("cors");
 const {connectDb} = require("./config/db");
-
 const fileUpload = require('express-fileupload');
+const cookieParser = require("cookie-parser");
+
 
 
 
@@ -41,7 +42,10 @@ const corsOptions = {
   "Access-Control-Request-Headers": "*",
 };
 
+
+//routes
 const blogRoute = require("./routes/blogRoute");
+const userRoute=require('./routes/userRoute');
 const errorHandler = require("./middleware/err");
 const pageNotFound = require("./middleware/pageNotFound");
 
@@ -55,8 +59,10 @@ app.use(fileUpload({
 
 
 
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
 app.use(express.json());
+app.use(cookieParser(process.env.COOKIE));
+
 
 // app.get('/api/v1/', auth, (req, res) => {
 //   return res.status(200).json({ message: "authenticated" })
@@ -85,8 +91,9 @@ app.listen(port, () => console.log(`http://127.0.0.1:${port}`));
 
 // app.use("/api/v1/",);
 app.use("/blog",blogRoute);
+app.use("/user",userRoute)
 
 
-// app.use(errorHandler);
-// app.use(pageNotFound);
+app.use(errorHandler);
+app.use(pageNotFound);
 
