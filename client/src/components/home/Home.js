@@ -5,6 +5,7 @@ import { useEffect, useReducer } from "react";
 import {reducer,ACTIONS} from "../../helper/Helper";
 import Loading from "../common/Loading";
 import Save from "../common/Saved";
+import { useAuth } from "../../context/authContext.";
 
 
 
@@ -18,6 +19,8 @@ const initState={
 const Home = () => {
     const [state,dispatch]=useReducer(reducer,initState);
     const {data,error,loading}=state;
+    const {authState,authDispatch}=useAuth();
+    console.log(authState);
 
     useEffect(()=>{
         dispatch({ type: ACTIONS.CALL_API });

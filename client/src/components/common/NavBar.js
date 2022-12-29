@@ -1,7 +1,10 @@
 import test from '../../assets/icon.jpg'
 import { Link } from 'react-router-dom';
+import { useAuth } from '../../context/authContext.';
 
 const NavBar = () => {
+    const {handleLogout,authenticated}=useAuth();
+
     return (
         <nav className="navbar navbar-expand-lg bg-light">
             <div className="container-fluid">
@@ -22,16 +25,33 @@ const NavBar = () => {
                         <li className="nav-item">
                             <Link className="nav-link active" aria-current="page" to="/">Home</Link>
                         </li>
-                        <li>
-                            <Link className="nav-link active" aria-current="page" to="/create">Write blog</Link>
+                        <li>{ authenticated &&
+                            <Link className="nav-link active"
+                             aria-current="page" to="/create">Write blog</Link>
+                            }
                         </li>
 
                         <li>
-                            <Link className="nav-link active" aria-current="page" to="/my-blog">Your Article</Link>
+                            {authenticated && 
+                            <Link className="nav-link active" aria-current="page" 
+                            to="/my-blog">Your Article</Link>
+                            }
                         </li>
                     </ul>
                 </div>
-                <Link type="button" className="btn btn-primary login-button" to='/login'>Login</Link>
+                {
+                 !authenticated && 
+                <Link type="button" 
+                className="btn btn-primary login-button" to='/login'>Login</Link>
+                }
+
+                {
+                 authenticated && 
+                    <button type="button" 
+                    className="btn btn-primary login-button"
+                    onClick={handleLogout}
+                >Logout</button>
+                }
             </div>
         </nav>
     );

@@ -19,6 +19,21 @@ export const api1 = axios.create({
 
   });
 
+// axios.interceptors.response.use(resp => resp, async error => {
+//   if (error.response.status === 401 && !refresh) {
+//       refresh = true;
+
+//       const response = await axios.post('refresh', {}, {withCredentials: true});
+
+//       if (response.status === 200) {
+//           axios.defaults.headers.common['Authorization'] = `Bearer ${response.data['token']}`;
+
+//           return axios(error.config);
+//       }
+//   }
+//   refresh = false;
+//   return error;
+// });
 
 export const editBlog=(id,data)=> api1.patch(`/blog/edit/${id}`,data);
 export const createBlog=(data)=>api1.post("/blog/create",data);
@@ -36,10 +51,46 @@ export const deleteBlog=(id)=>api.delete(`/blog/${id}`);
 export const getBlogByAuthorId=(data)=> api.post("/blog/user-article",data);
 export const registerUser=(data)=> api.post("/user/auth/register",data);
 export const loginUser=(data)=> api.post("/user/auth/login",data,{withCredentials:true});
+export const getUser=()=>api.get("/user");
+export const verifyToken=()=>api.get("/user/auth/get-accessToken",{withCredentials:true});
+export const verifyToken1=()=>api1.get("/user/auth/get-accessToken",{withCredentials:true});
+export const logoutUser=()=>api.get("/user/auth/logout",{withCredentials:true});
 
 
 
+let refresh=false;
 
+api.interceptors.response.use(res=>res,async error=>{
+  if(error.response.status===401 && !refresh){
+    refresh=true;
+    const response=await verifyToken();
+    if(response.status===200){
+      setHead(response.data.accessToken);
+      return api(error.config);
+    }
+  }
+
+  refresh=false;
+  return error;
+})
+
+
+refresh=false;
+
+
+api1.interceptors.response.use(res=>res,async error=>{
+  if(error.response.status===401 && !refresh){
+    refresh=true;
+    const response=await verifyToken1();
+    if(response.status===200){
+      setHead(response.data.accessToken);
+      return api1(error.config);
+    }
+  }
+
+  refresh=false;
+  return error;
+})
 
 
 

@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { loginUser, setHead } from "../../apis";
-import { api } from "../../apis";
+import { useAuth } from "../../context/authContext.";
 
 const Login = () => {
     const navigate=useNavigate();
     const [email,setEmail]=useState("");
     const [password,setPassword]=useState("");
     const [error,setError]=useState(false);
+    const {setAuthenticated}=useAuth()
 
     const login=async()=>{
         try {
@@ -16,9 +17,9 @@ const Login = () => {
                 return;
             }
             const response=await loginUser({email,password});
-            console.log(response.data.accessToken);
             setHead(response.data.accessToken);
             if(response.status===200) navigate('/');
+            setAuthenticated(true);
         } catch (error) {
             setError(true)
         }

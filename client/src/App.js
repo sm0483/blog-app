@@ -11,10 +11,11 @@ import Article from './components/article/Article'
 import EditBlog from './components/edit/EditBlog';
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';
-
+import { AuthProvider } from './context/authContext.';
 
 function App() {
   return (
+    <AuthProvider>
     <Router>
       <Routes>
         <Route path="/" element={<Home/>}/>
@@ -24,9 +25,10 @@ function App() {
         <Route path="/my-blog" element={<MyBlog/>}/>
         <Route path="/article/:id" element={<Article/>}/>
         <Route path="/edit/:id" element={<EditBlog/>}/>
-
       </Routes>
     </Router>
+    </AuthProvider>
+
   );
 }
 
