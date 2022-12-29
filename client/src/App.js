@@ -12,6 +12,7 @@ import EditBlog from './components/edit/EditBlog';
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 import { AuthProvider } from './context/authContext.';
+import RequireAuth from './helper/RequireAuth';
 
 function App() {
   return (
@@ -21,10 +22,26 @@ function App() {
         <Route path="/" element={<Home/>}/>
         <Route path="/register" element={<Register/>}/>
         <Route path="/login" element={<Login/>}/>
-        <Route path="/create" element={<CreateBlog/>}/>
-        <Route path="/my-blog" element={<MyBlog/>}/>
-        <Route path="/article/:id" element={<Article/>}/>
-        <Route path="/edit/:id" element={<EditBlog/>}/>
+        <Route path="/create" element={
+        <RequireAuth>
+          <CreateBlog/>
+        </RequireAuth>
+        }/>
+        <Route path="/my-blog" element={
+        <RequireAuth>
+          <MyBlog/>
+        </RequireAuth>
+        }/>
+        <Route path="/article/:id" element={
+        <RequireAuth>
+            <Article/>
+        </RequireAuth>
+        }/>
+        <Route path="/edit/:id" element={
+          <RequireAuth>
+          <EditBlog/>
+          </RequireAuth>
+        }/>
       </Routes>
     </Router>
     </AuthProvider>
