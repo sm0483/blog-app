@@ -8,7 +8,7 @@ const Login = () => {
     const [email,setEmail]=useState("");
     const [password,setPassword]=useState("");
     const [error,setError]=useState(false);
-    const {setAuthenticated}=useAuth()
+    const {setAuthenticated,setToggle}=useAuth()
 
     const login=async()=>{
         try {
@@ -20,6 +20,7 @@ const Login = () => {
             setHead(response.data.accessToken);
             if(response.status===200) navigate('/');
             setAuthenticated(true);
+            setToggle((value)=>!value)
         } catch (error) {
             setError(true)
         }
@@ -27,25 +28,25 @@ const Login = () => {
     return (
         <div className="register-container ">
             <div className="container register-box">
-                <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="exampleFormControlInput1" 
+                <div className="mb-3">
+                    <label for="exampleFormControlInput1" className="form-label">Email</label>
+                    <input type="email" className="form-control" id="exampleFormControlInput1" 
                     placeholder="name@example.com"
                     value={email}
                     onChange={(e)=>setEmail(e.target.value)}
                     />
                 </div>
 
-                <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">Password</label>
-                    <input type="email" class="form-control" id="exampleFormControlInput1" 
+                <div className="mb-3">
+                    <label for="exampleFormControlInput1" className="form-label">Password</label>
+                    <input type="password" className="form-control" id="exampleFormControlInput1" 
                     placeholder="abc@0343"
                     value={password}
                     onChange={(e)=>setPassword(e.target.value)}
                     />
                 </div>
                 
-                <div class="mb-3 d-flex justify-content-center align-items-center flex-column">
+                <div className="mb-3 d-flex justify-content-center align-items-center flex-column">
                     <button className="btn-primary btn w-25"
                     onClick={login}
                     >Login</button>

@@ -5,6 +5,7 @@ import { useReducer,useEffect } from "react";
 import Loading from "../common/Loading";
 import Blogs from "./Blogs";
 import Save from "../common/Saved";
+import { useAuth } from "../../context/authContext.";
 
 
 
@@ -21,22 +22,22 @@ const MyBlog = () => {
 
     const [state,dispatch]=useReducer(reducer,initState);
     const {data,error,loading}=state;
-    // const {userId}=
+    const {authState,setAuthenticated,setToggle}=useAuth();
 
     useEffect(()=>{
-        const userId="5cabe64dcf0d4447fa60f5e1"
         dispatch({ type: ACTIONS.CALL_API });
         let isActive = true;
             const getData=async()=>{
                 try{
-                const response=await getBlogByAuthorId({userId});
-                if (response.status === 200) {
-                    dispatch({ type: ACTIONS.SUCCESS, data: response.data });
-                    console.log(response.data)
-                    return;
-                }
-                console.log(response);
-                dispatch({ type: ACTIONS.ERROR, error: response.error});
+                    const userId=authState.data._id;
+                    const response=await getBlogByAuthorId({userId});
+                    if (response.status === 200) {
+                        dispatch({ type: ACTIONS.SUCCESS, data: response.data });
+                        console.log(response.data)
+                        return;
+                    }
+                    console.log(response);
+                    dispatch({ type: ACTIONS.ERROR, error: response.error});
             }catch(err){
                 console.log(err);
                 dispatch({ type: ACTIONS.ERROR, error: err.message});
@@ -44,7 +45,7 @@ const MyBlog = () => {
     
             }
     
-            getData();
+            authState && getData();
 
             // eslint-disable-next-line react-hooks/exhaustive-deps
        

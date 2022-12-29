@@ -6,6 +6,7 @@ import Loading from '../common/Loading';
 import Save from '../common/Saved';
 import { useEffect } from 'react';
 import { deleteBlog } from '../../apis';
+import { useAuth } from '../../context/authContext.';
 
 
 
@@ -25,6 +26,7 @@ const EditInput=() => {
 
     const [status,setStatus]=useState(false);
     const [errorButton,setErrorButton]=useState(false);
+    const {authState,}=useAuth();
 
     const handleDelete=async(id)=>{
         try {
@@ -86,12 +88,13 @@ const EditInput=() => {
         }
         try {
             dispatch({ type: ACTIONS.CALL_API });
+            const {name,_id}=authState.data;
             console.log(title);
             const data={
-                "blogTitle":title,
+                blogTitle:title,
                 blogData,
-                "authorId":"5cabe64dcf0d4447fa60f5e1",
-                "authorName":"mr rave",
+                authorId:_id,
+                authorName:name,
                 image
             }
 

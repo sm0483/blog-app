@@ -4,6 +4,7 @@ import { reducer ,ACTIONS, MESSAGE} from '../../helper/Helper';
 import Loading from '../common/Loading';
 import Save from '../common/Saved';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/authContext.';
 
 
 const initState={
@@ -25,6 +26,7 @@ const Input = () => {
     const {loading,error}=state;
     const [errorButton,setErrorButton]=useState(false);
     const navigate=useNavigate();
+    const {authState,setAuthenticated}=useAuth();
 
 
 
@@ -36,13 +38,15 @@ const Input = () => {
                 return;
             }
             dispatch({ type: ACTIONS.CALL_API });
+            setAuthenticated(true);
+            const {name,_id}=authState.data;
             const data={
-                "blogTitle":title,
+                blogTitle:title,
                 blogData,
-                "authorId":"5cabe64dcf0d4447fa60f5e1",
-                "authorName":"mr rave",
+                authorId:_id,
+                authorName:name,
                 image
-                }
+            }
 
             console.log(data)
 

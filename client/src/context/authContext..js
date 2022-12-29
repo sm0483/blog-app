@@ -18,6 +18,7 @@ const initUser={
 const AuthProvider=({children})=>{
     const [authState,authDispatch]=useReducer(reducer,initUser);
     const [authenticated,setAuthenticated]=useState(false);
+    const [toggle,setToggle]=useState(false);
 
 
     const handleLogout=async()=>{
@@ -33,7 +34,7 @@ const AuthProvider=({children})=>{
             try {
                 const response=await getUser();
                 authDispatch({ type: ACTIONS.SUCCESS, data: response.data });
-                if(response.status==200) setAuthenticated(true);
+                if(response.status===200) setAuthenticated(true);
                 else setAuthenticated(false);
             } catch (error) {
                 authDispatch({ type: ACTIONS.ERROR, error: error.message});
@@ -46,7 +47,7 @@ const AuthProvider=({children})=>{
             isActive=false;
         }
 
-    },[])
+    },[toggle])
 
 
     return(
@@ -56,7 +57,8 @@ const AuthProvider=({children})=>{
             authDispatch,
             authenticated,
             handleLogout,
-            setAuthenticated
+            setAuthenticated,
+            setToggle
         }}
         >
             {children}

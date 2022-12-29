@@ -26,34 +26,34 @@ const Register = () => {
     return (
         <div className="register-container ">
             <div className="container register-box">
-                <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">Name</label>
-                    <input type="text" class="form-control" id="exampleFormControlInput1" 
+                <div className="mb-3">
+                    <label for="exampleFormControlInput1" className="form-label">Name</label>
+                    <input type="text" className="form-control" id="exampleFormControlInput1" 
                     placeholder="June"
                      value={name}
                      onChange={(e)=>setName(e.target.value)}
                     />
                 </div>
 
-                <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="exampleFormControlInput1" 
+                <div className="mb-3">
+                    <label for="exampleFormControlInput1" className="form-label">Email</label>
+                    <input type="email" className="form-control" id="exampleFormControlInput1" 
                     placeholder="name@example.com"
                     value={email}
                     onChange={(e)=>setEmail(e.target.value)}
                     />
                 </div>
 
-                <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="exampleFormControlInput1" 
+                <div className="mb-3">
+                    <label for="exampleFormControlInput1" className="form-label">Password</label>
+                    <input type="password" className="form-control" id="exampleFormControlInput1" 
                     placeholder="abc@0343"
                     value={password}
                     onChange={(e)=>setPassword(e.target.value)}
                     />
                 </div>
                 
-                <div class="mb-3 d-flex justify-content-center align-items-center flex-column">
+                <div className="mb-3 d-flex justify-content-center align-items-center flex-column">
                     <button className="btn-primary btn w-25"
                     onClick={saveUser}
                     >Register</button>
