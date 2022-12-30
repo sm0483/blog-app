@@ -37,10 +37,8 @@ const loginUser=asyncWrapper(async(req,res)=>{
     const {email,password}=req.body;
     if(!email || !password) throw new CustomError("Invalid Credential",StatusCodes.FORBIDDEN);
     const user = await User.findOne({ email });
-    console.log(user);
     if(!user) throw new CustomError("Invalid Credential",StatusCodes.FORBIDDEN);
     const isValid=await user.comparePassword(password);
-    console.log(isValid);
     if(!isValid) throw new CustomError("Invalid Credential",StatusCodes.FORBIDDEN);
     const id=user._id.toString();
     const accessToken=createJwt({id},"accessToken");
@@ -57,10 +55,37 @@ const getAccessToken=asyncWrapper(async(req,res)=>{
 })
 
 
+const getUser=asyncWrapper(async(req,res)=>{
+    const {id}=req.user;
+    const response=await User.findById(id);
+    if(!response) throw new CustomError("No user found",StatusCodes.BAD_REQUEST);
+    res.status(StatusCodes.OK).json({
+        name:response.name,
+        email:response.email,
+        _id:response._id
+    })
+})
+
+
+const logoutUser=asyncWrapper(async(req,res)=>{
+    res.cookie("refreshToken", "", {
+        httpOnly: true,
+        expires: new Date(Date.now() + 1000 * 60 * 60 * 24),
+        secure: true,
+        signed: true,
+      });
+
+    const accessToken="";
+    res.status(StatusCodes.OK).json({accessToken,message:"Logged out"}); 
+})
+
+
 
 
 module.exports={
     registerUser,
     loginUser,
-    getAccessToken
+    getAccessToken,
+    getUser,
+    logoutUser
 }

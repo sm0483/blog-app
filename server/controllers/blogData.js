@@ -18,7 +18,6 @@ const createBlog=asyncWrapper(async(req,res)=>{
 
 
 const getBlogById=asyncWrapper(async(req,res)=>{
-    console.log(req.body);
     const {id}=req.params;
     const response=await Blog.findById(id);
     if(!response) throw new CustomError("Data not found",StatusCodes.NOT_FOUND);
@@ -28,7 +27,6 @@ const getBlogById=asyncWrapper(async(req,res)=>{
 
 const getBlogByAuthorId=asyncWrapper(async(req,res)=>{
     const {userId:authorId}=req.body;
-    console.log(authorId);
     const response=await Blog.find({authorId});
     if(!response){
         res.status(StatusCodes.OK).json({

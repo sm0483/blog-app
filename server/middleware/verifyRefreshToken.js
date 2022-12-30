@@ -7,13 +7,15 @@ const {
 const CustomError = require("../error/custom");
 const { tokenValid } = require("../utils/jwt");
 
-const verifyAccessToken=asyncWrapper(async(req,res,next)=>{
-    let token=req.headers.authorization;
+const verifyRefreshToken=asyncWrapper(async(req,res,next)=>{
+    const token = req.signedCookies.refreshToken;
     if(!token)throw new CustomError("token not present",StatusCodes.UNAUTHORIZED);
-    token=token.split(' ')[1];
-    try {
-        const tokenResponse=tokenValid(token,"accessToken");
+     try {
+        const tokenResponse=tokenValid(token,"refreshToken");
         req.user={
+            id:tokenResponse.payload.id
+        }
+        req.body={
             id:tokenResponse.payload.id
         }
         return next();
@@ -23,4 +25,4 @@ const verifyAccessToken=asyncWrapper(async(req,res,next)=>{
 })
 
 
-module.exports=verifyAccessToken;
+module.exports=verifyRefreshToken;

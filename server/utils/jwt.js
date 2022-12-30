@@ -23,10 +23,9 @@ const tokenValid=(token,type)=>{
 
 const attachCookieToResponse = ( res, payload ) => {
     const token = createJwt(payload,"refreshToken");
-    const oneDay = 1000 * 60 * 60 * 24;
     res.cookie("refreshToken", token, {
       httpOnly: true,
-      expires: new Date(Date.now() + oneDay),
+      expires: new Date(Date.now() + 1000 * 60 * 60 * 24),
       secure: true,
       signed: true,
     });
