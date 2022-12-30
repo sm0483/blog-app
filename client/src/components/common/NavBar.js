@@ -1,10 +1,10 @@
-import test from '../../assets/icon.jpg'
+import test from '../../assets/test.png'
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../context/authContext.';
-import { logoutUser } from "../../apis";
-import { setHead } from '../../apis';
+import { logoutUser } from "../../apis/index";
+import { setHead } from '../../apis/index';
 import { useNavigate } from 'react-router-dom';
-
+import Switch from 'react-switch'
 
 const NavBar = () => {
     const {setAuthenticated,authenticated}=useAuth();
@@ -21,55 +21,68 @@ const NavBar = () => {
     }
 
     return (
-        <nav className="navbar navbar-expand-lg bg-light">
-            <div className="container-fluid">
-                <button className="navbar-toggler" type="button" 
-                data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" 
-                aria-controls="navbarTogglerDemo03" aria-expanded="false" 
-                aria-label="Toggle navigation">
-                <span className="navbar-toggler-icon"></span>
-                </button>
+        <>
+        <nav className="navbar navbar-expand-lg  navbar-bg-color px-0 py-3 navbar-shadow">
+  <div className="container-xl">
+  <Link className="navbar-brand" to="/">
+    MadScientist
+    </Link>
+    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+      <span className="navbar-toggler-icon"></span>
+    </button>
+    <div className="collapse navbar-collapse" id="navbarCollapse">
 
-                <Link className="navbar-brand" to="#">
-                    <img src={test} alt="Bootstrap" width="30" height="24"/>
-                    blogSpot
-                </Link>
+      <div className="navbar-nav">
+        <Link className="nav-item nav-link active navbar-home-color" to="/" aria-current="page">Home</Link>
+        { authenticated && 
+            <Link className="nav-item nav-link text-color " to="/create">Write blog</Link>
+        }
+        {
+            authenticated && 
+            <Link className="nav-item nav-link text-color" to="/my-blog">My blog</Link>
 
-                <div className="collapse navbar-collapse" id="navbarTogglerDemo03">
-                    <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li className="nav-item">
-                            <Link className="nav-link active" aria-current="page" to="/">Home</Link>
-                        </li>
-                        <li>{ authenticated &&
-                            <Link className="nav-link active"
-                             aria-current="page" to="/create">Write blog</Link>
-                            }
-                        </li>
+        }
+      </div>
 
-                        <li>
-                            {authenticated && 
-                            <Link className="nav-link active" aria-current="page" 
-                            to="/my-blog">Your Article</Link>
-                            }
-                        </li>
-                    </ul>
-                </div>
-                {
-                 !authenticated && 
-                <Link type="button" 
-                className="btn btn-primary login-button" to='/login'>Login</Link>
-                }
+    
+      <div className="navbar-nav ms-auto">
+       
 
-                {
-                 authenticated && 
-                    <button type="button" 
-                    className="btn btn-primary login-button"
-                    onClick={handleLogout}
-                >Logout</button>
-                }
-            </div>
-        </nav>
+        {!authenticated &&
+            <Link className="nav-item nav-link text-color" to='/login'>Sign in</Link>
+        }
+      </div>
+
+      <Switch className='toggle nav-item nav-link px-lg-3 mt-1'   
+                onColor={"#202c37"}
+                onHandleColor={'#2b3945'}
+                />
+     
+      
+      <div className="d-flex align-items-lg-center mt-3 mt-lg-0 ">
+
+        { !authenticated &&
+        <Link to="/register" className="btn btn-sm btn-primary w-full w-lg-auto">
+          Register
+        </Link>
+        }
+
+
+            {authenticated &&
+            <button to="/register" className="btn btn-sm btn-primary w-full w-lg-auto"
+            onClick={handleLogout}
+            >
+          Logout
+        </button>
+        }
+      </div>
+    </div>
+  </div>
+</nav>
+</>
     );
 }
  
 export default NavBar;
+
+
