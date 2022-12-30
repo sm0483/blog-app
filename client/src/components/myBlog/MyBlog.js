@@ -22,7 +22,7 @@ const MyBlog = () => {
 
     const [state,dispatch]=useReducer(reducer,initState);
     const {data,error,loading}=state;
-    const {authState,setAuthenticated,setToggle}=useAuth();
+    const {authState,authenticated,setToggle}=useAuth();
 
     useEffect(()=>{
         dispatch({ type: ACTIONS.CALL_API });
@@ -30,6 +30,7 @@ const MyBlog = () => {
             const getData=async()=>{
                 try{
                     const userId=authState.data._id;
+                    console.log(userId);
                     const response=await getBlogByAuthorId({userId});
                     if (response.status === 200) {
                         dispatch({ type: ACTIONS.SUCCESS, data: response.data });
@@ -39,20 +40,19 @@ const MyBlog = () => {
                     console.log(response);
                     dispatch({ type: ACTIONS.ERROR, error: response.error});
             }catch(err){
-                console.log(err);
+                console.log(err.message+"cat");
                 dispatch({ type: ACTIONS.ERROR, error: err.message});
             }
     
             }
     
-            authState && getData();
+            getData();
 
-            // eslint-disable-next-line react-hooks/exhaustive-deps
        
         return () => {
             isActive = false;
         };
-    },[])
+    },[authenticated])
 
     return (
         <>

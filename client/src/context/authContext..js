@@ -1,9 +1,9 @@
-import React, { Children, useContext, useEffect, useReducer, useState } from "react";
+import React, {  useContext, useEffect,  useReducer, useState } from "react";
 import { getUser } from "../apis";
 import { ACTIONS } from "../helper/Helper";
 import { reducer } from "../helper/Helper";
-import { logoutUser } from "../apis";
-import { setHead } from "../apis";
+
+
 
 
 const AuthContext=React.createContext();
@@ -20,12 +20,9 @@ const AuthProvider=({children})=>{
     const [authenticated,setAuthenticated]=useState(false);
     const [toggle,setToggle]=useState(false);
 
+    
 
-    const handleLogout=async()=>{
-        await logoutUser();
-        setHead("");
-        setAuthenticated(false);
-    }
+        
 
     useEffect(()=>{
         authDispatch({ type: ACTIONS.CALL_API });
@@ -34,8 +31,10 @@ const AuthProvider=({children})=>{
             try {
                 const response=await getUser();
                 authDispatch({ type: ACTIONS.SUCCESS, data: response.data });
-                if(response.status===200) setAuthenticated(true);
-                else setAuthenticated(false);
+                if(response.status===200){
+                    setAuthenticated(true);
+                    localStorage.setItem("id",response.data._id);
+                }
             } catch (error) {
                 authDispatch({ type: ACTIONS.ERROR, error: error.message});
                 setAuthenticated(false);
@@ -43,6 +42,7 @@ const AuthProvider=({children})=>{
         }
 
         getData();
+        
         return()=>{
             isActive=false;
         }
@@ -50,15 +50,18 @@ const AuthProvider=({children})=>{
     },[toggle])
 
 
+
+
+
+
+
     return(
         <AuthContext.Provider
         value={{
             authState,
-            authDispatch,
             authenticated,
-            handleLogout,
             setAuthenticated,
-            setToggle
+            setToggle,
         }}
         >
             {children}

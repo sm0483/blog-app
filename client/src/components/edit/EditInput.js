@@ -44,7 +44,6 @@ const EditInput=() => {
 
     const [state,dispatch]=useReducer(reducer,initState);
     const {error,loading}=state;
-    // const {authorName,blogData,blogTitle,authorId,imageUrl}=data;
 
 
 

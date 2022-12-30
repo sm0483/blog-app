@@ -26,8 +26,7 @@ export const createBlog=(data)=>api1.post("/blog/create",data);
 export const setHead=(token)=>{
   api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
   api1.defaults.headers.common['Authorization'] = `Bearer ${token}`; 
-  
-
+  localStorage.setItem('accessToken',token);
 }
 
 

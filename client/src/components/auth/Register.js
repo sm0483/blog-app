@@ -18,7 +18,7 @@ const Register = () => {
             const response=await registerUser({name,email,password});
             if(response.status===200) navigate("/login");
         } catch (error) {
-            setError(true);
+            setError(error.message);
             console.log(error.message);
         }
     }

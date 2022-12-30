@@ -1,9 +1,24 @@
 import test from '../../assets/icon.jpg'
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../context/authContext.';
+import { logoutUser } from "../../apis";
+import { setHead } from '../../apis';
+import { useNavigate } from 'react-router-dom';
+
 
 const NavBar = () => {
-    const {handleLogout,authenticated}=useAuth();
+    const {setAuthenticated,authenticated}=useAuth();
+    const navigate=useNavigate();
+
+
+
+    const handleLogout=async()=>{
+        await logoutUser();
+        setAuthenticated(false);
+        setHead("");
+        navigate("/");
+
+    }
 
     return (
         <nav className="navbar navbar-expand-lg bg-light">

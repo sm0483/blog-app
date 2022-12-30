@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { loginUser, setHead } from "../../apis";
 import { useAuth } from "../../context/authContext.";
+import { ACTIONS } from "../../helper/Helper";
+import Save from "../common/Saved";
 
 const Login = () => {
     const navigate=useNavigate();
@@ -22,14 +24,16 @@ const Login = () => {
             setAuthenticated(true);
             setToggle((value)=>!value)
         } catch (error) {
-            setError(true)
+            setError(error.message)
         }
     }
+
+    
     return (
         <div className="register-container ">
             <div className="container register-box">
                 <div className="mb-3">
-                    <label for="exampleFormControlInput1" className="form-label">Email</label>
+                    <label htmlFor="exampleFormControlInput1" className="form-label">Email</label>
                     <input type="email" className="form-control" id="exampleFormControlInput1" 
                     placeholder="name@example.com"
                     value={email}
@@ -38,7 +42,7 @@ const Login = () => {
                 </div>
 
                 <div className="mb-3">
-                    <label for="exampleFormControlInput1" className="form-label">Password</label>
+                    <label htmlFor="exampleFormControlInput1" className="form-label">Password</label>
                     <input type="password" className="form-control" id="exampleFormControlInput1" 
                     placeholder="abc@0343"
                     value={password}
