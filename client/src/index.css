@@ -30,6 +30,8 @@ img{
     --grey:#8a8d8e;
     --grey-white:#f2f3f5;
     --dark-grey:#5b5f63;
+    --rose:#fd9aae;
+    --grey-black:#414850;
 }
 
 .dark-color{
@@ -60,36 +62,100 @@ img{
   font-weight: 600;
 }
 
+.article-card{
+  border-radius: 0.4rem;
+  border: 0.5px solid var(--grey-white);  
+
+}
+
+.article-card img{
+  border-radius: 0.4rem 0.4rem 0rem 0rem ;
+  width: 1rem;
+
+}
+
+.card-bg{
+  background-color: var(--grey-white);
+  
+}
+
+.card-text-container{
+  padding: 1.7rem 1.5rem;
+  border-radius: 0rem 0rem  0.4rem 0.4rem;
+
+}
+
+.card-image-container{
+  background-color: var(--rose);
+  border-radius: 0.4rem 0.4rem 0rem 0rem ;
+
+}
+
+.head-content{
+  max-height: 3.5rem;
+  overflow: hidden;
+  font-size: 1rem;
+  max-width: 30rem;
+  font-weight: 600;
+  color: var(--grey-black);
+}
+
+.head-text{
+  font-size: 1rem;
+  font-weight: 600;
+}
 
 
+.edit-button{
+  border-radius: 100vh;
+}
+
+.edit-button img{
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.edit-button i{
+  background-color: var(--white);
+  border-radius: 100vh;
+  width: 1.5rem;
+  height: 1.5rem;
+}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+.form-label{
+  font-size: 1.2rem;
+  font-weight: 600;
+}
 
 .title-input{
-    max-width: 25rem; 
+  max-width: 25rem; 
 }
 
 .article-text-area{
-    min-height: 30rem !important;
+  min-height: 30rem !important;
 }
 
 .article-content{
-    margin-top: 5rem !important;
-    border: 1px solid rgb(223, 217, 217);
-    box-shadow: rgba(158, 158, 167, 0.2) 0px 7px 29px 0px;
+  margin-top: 5rem !important;
+  border: 1px solid rgb(223, 217, 217);
+  box-shadow: rgba(158, 158, 167, 0.2) 0px 7px 29px 0px;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

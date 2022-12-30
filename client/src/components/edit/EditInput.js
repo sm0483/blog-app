@@ -150,7 +150,7 @@ const EditInput=() => {
             
             loading ? (<Loading/>) :(
 
-            <div className="container pt-5">
+            <div className="container pt-5 edit-container">
 
                 <div className="mb-3">
                     <label htmlFor="exampleFormControlInput1" className="form-label h4">Title</label>
