@@ -33,7 +33,6 @@ const registerUser=asyncWrapper(async(req,res)=>{
 
 
 const loginUser=asyncWrapper(async(req,res)=>{
-    console.log(req.body);
     const {email,password}=req.body;
     if(!email || !password) throw new CustomError("Invalid Credential",StatusCodes.FORBIDDEN);
     const user = await User.findOne({ email });
@@ -50,6 +49,7 @@ const loginUser=asyncWrapper(async(req,res)=>{
 
 const getAccessToken=asyncWrapper(async(req,res)=>{
     const {id}=req.body;
+    if(!id) throw new CustomError("Invalid Credential",StatusCodes.FORBIDDEN);
     const accessToken=createJwt({id},"accessToken");
     res.status(StatusCodes.OK).json({accessToken}); 
 })
@@ -57,6 +57,7 @@ const getAccessToken=asyncWrapper(async(req,res)=>{
 
 const getUser=asyncWrapper(async(req,res)=>{
     const {id}=req.user;
+    if(!id) throw new CustomError("Invalid Credential",StatusCodes.FORBIDDEN);
     const response=await User.findById(id);
     if(!response) throw new CustomError("No user found",StatusCodes.BAD_REQUEST);
     res.status(StatusCodes.OK).json({
