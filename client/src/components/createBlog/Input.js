@@ -80,30 +80,31 @@ const Input = () => {
 
     return (
         <>
-            { status ? (
-            <div className="container pt-5 save-message-container d-flex justify-content-center"
-                onMouseDown={saveNavigate}
-            >
-                <Save message={MESSAGE.success.savedData} flag={ACTIONS.SUCCESS}/>
-            </div>):
+            { 
+            loading ?(<Loading/>) :(
+            <div className="container pt-5">
 
-            
-                errorButton ? (
-                    <div className="container pt-5 save-message-container 
-                    d-flex justify-content-center"
-                    onMouseDown={()=>setErrorButton(false)}
+            {
+                status ? (
+                    <div className="position-absolute top-10 translate-middle-y  start-0 w-100 d-flex justify-content-center"
+                             onMouseDown={saveNavigate}
                     >
-                    <Save message={error} flag={ACTIONS.ERROR}/>
+                    <Save message={MESSAGE.success.savedData} flag={ACTIONS.SUCCESS}/>
                     </div>
-                ):
-            
+                ) :(
+                    errorButton && (
+                        <div className="position-absolute top-10 translate-middle-y  start-0 w-100 d-flex justify-content-center"
+                                 onMouseDown={()=>setErrorButton(false)}
+    
+                        >
+                             <Save message={error} flag={ACTIONS.ERROR}/>
+                        </div>
+                    )
+                )
+            }
 
-
-            
-                loading ?(<Loading/>) :(
-
-                    <div className="container pt-5">
-
+          
+          
                 <div className="mb-3">
                     <label htmlFor="exampleFormControlInput1" className="form-label h4">Title</label>
                     <input type="text" className="form-control title-input"
@@ -149,3 +150,23 @@ const Input = () => {
 }
  
 export default Input;
+
+
+
+// status ? (
+//     <div className="container pt-5 save-message-container d-flex justify-content-center"
+//         onMouseDown={saveNavigate}
+//     >
+//         <Save message={MESSAGE.success.savedData} flag={ACTIONS.SUCCESS}/>
+//     </div>):
+
+    
+//         errorButton ? (
+//             <div className="container pt-5 save-message-container 
+//             d-flex justify-content-center"
+//             onMouseDown={()=>setErrorButton(false)}
+//             >
+//             <Save message={error} flag={ACTIONS.ERROR}/>
+//             </div>
+//         ):
+    

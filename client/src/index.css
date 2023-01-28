@@ -13,6 +13,17 @@ img{
     -ms-interpolation-mode: nearest-neighbor;
 }
 
+
+.close-button {
+  background-color: transparent;
+  border: none;
+  font-size: 1em;
+  color: #000;
+  cursor: pointer;
+  
+}
+
+
 *{
    font-family: 'Nunito Sans', sans-serif;
    padding: 0em;
@@ -44,6 +55,7 @@ img{
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  min-height: 7rem;
 }
 
 :root{
@@ -230,33 +242,6 @@ img{
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /* loading animation */
 
 
@@ -328,13 +313,6 @@ img{
 
 
 
-  /* error for error message */
-
-
-
-
-/* saved message pop */
-
 
 
 .success-msg {
@@ -343,8 +321,10 @@ img{
 }
 
 .error-msg{
-  color: hsl(0, 97%, 47%);
-  background-color:hsl(0, 59%, 77%);
+  background-color:hsl(0, 59%, 55%);
+  color: white;
+  padding: 0.7rem;
+  border-radius: 0.5rem;
 }
 
 
