@@ -32,7 +32,8 @@ const Login = () => {
     return (
         <div className="register-container ">
             <div className="container register-box">
-                <div className="mb-3">
+                <h3 className="text-center">Login</h3>
+                <div className="mb-3 mt-4">
                     <label htmlFor="exampleFormControlInput1" className="form-label">Email</label>
                     <input type="email" className="form-control" id="exampleFormControlInput1" 
                     placeholder="name@example.com"
@@ -50,11 +51,11 @@ const Login = () => {
                     />
                 </div>
                 
-                <div className="mb-3 d-flex justify-content-center align-items-center flex-column">
+                <div className="mb-3 d-flex justify-content-center align-items-center flex-column mt-4">
                     <button className="btn-primary btn w-25"
                     onClick={login}
                     >Login</button>
-                    <p>New here ?<Link to='/register'> Register</Link></p>
+                    <p className="mt-4 ">New here ?<Link to='/register'> Register</Link></p>
                 </div>
 
             </div>

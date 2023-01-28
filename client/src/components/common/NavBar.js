@@ -4,7 +4,6 @@ import { useAuth } from '../../context/authContext.';
 import { logoutUser } from "../../apis/index";
 import { setHead } from '../../apis/index';
 import { useNavigate } from 'react-router-dom';
-import Switch from 'react-switch'
 
 const NavBar = () => {
     const {setAuthenticated,authenticated}=useAuth();
@@ -53,11 +52,6 @@ const NavBar = () => {
         }
       </div>
 
-      <Switch className='toggle nav-item nav-link px-lg-3 mt-1'   
-                onColor={"#202c37"}
-                onHandleColor={'#2b3945'}
-                />
-     
       
       <div className="d-flex align-items-lg-center mt-3 mt-lg-0 ">
 

@@ -4,25 +4,22 @@ const Card = ({data}) => {
     const {blogData,blogTitle,authorId,_id:id,imageUrl}=data;
     const navigate=useNavigate();
     return (
-        <div className="mt-4 col-md-6 col-lg-4">
-            <div className="article-card"
-                onClick={()=>navigate(`/article/${id}`)}
+        <div className="mt-4 col-md-6 col-lg-4 ">
+            <div class="card h-100 d-flex align-items-center"
+                        onClick={()=>navigate(`/article/${id}`)}
             >
-            <div className="card-image-container">
-                <img src={imageUrl} alt="thumbnail" className='img-fluid '/>
-            </div>
-            <div className="card-text-container card-bg">
-                <div className="card-text-sub">
-                    <h3 className="head-text text-center text-color">{blogTitle}</h3>
-                    <div className="head-content text-center">
-                        {blogData}
-                    </div>
+            <img src={imageUrl} class="card-img-top img-fluid thumbnail" alt="image"/>
+                <div class="card-body">
+                    <h5 class="card-title">{blogTitle}</h5>
+                    <p class="card-text">{blogData}</p>
                 </div>
             </div>
-            </div>
+
         </div>
     );
 }
  
 export default Card;
+
+
 

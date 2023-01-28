@@ -1,8 +1,8 @@
 const Credit = ({credit}) => {
     return (
     <div className="written px-4">
-        <div className="h5">Written by</div>
-        <div className="h6">{credit}</div> 
+        <div className="text-1">Written by</div>
+        <div className="text-2">{credit}</div> 
     </div>
     );
 }

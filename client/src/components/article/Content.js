@@ -52,33 +52,48 @@ const Content = () => {
 
 
     return (
-            <div className="container p-2 article-content mt-5">
-                {
-                    loading ? (<Loading/>):
-                    error ? (
-                        <div className="d-flex justify-content-center">
-                    <Save message={error} flag={ACTIONS.ERROR}/>
+            <div className="container p-2 article-content mt-4">
+                <div className="article-sub-container">
+                     <Head title={blogTitle}/>
+                    <div className="article-image-container text-center mt-4">
+                        <img src={imageUrl} alt="article" className='img-fluid' />
                     </div>
-                    
-                    ) :
-                    (
-                    <div className="row">
-                    <div className="col-lg-6 col-sm-1 article-image-container">
-                        <img src={imageUrl} className='img-fluid w-100' alt="article" />
-                    </div>
-                    <div className="col-lg-6 col-sm-1">
-                    <Head title={blogTitle}/>
-                    <Credit credit={authorName}/>
-                    <p className='p-4'>
+                    <div className="article-text-container mt-4">
                         {blogData}
-                    </p>
                     </div>
-                </div>)
-                }
-                
+                    <div className="d-flex justify-content-end mt-3">
+                        <Credit credit={authorName}/>
+                    </div>
+
+                </div>
             </div>
         );
 
 }
  
 export default Content;
+
+
+
+// {
+//     loading ? (<Loading/>):
+//     error ? (
+//         <div className="d-flex justify-content-center">
+//     <Save message={error} flag={ACTIONS.ERROR}/>
+//     </div>
+    
+//     ) :
+//     (
+//     <div className="row">
+//     <div className="col-lg-6 col-sm-1 article-image-container">
+//         <img src={imageUrl} className='img-fluid w-100' alt="article" />
+//     </div>
+//     <div className="col-lg-6 col-sm-1">
+//     <Head title={blogTitle}/>
+//     <Credit credit={authorName}/>
+//     <p className='p-4'>
+//         {blogData}
+//     </p>
+//     </div>
+// </div>)
+// }

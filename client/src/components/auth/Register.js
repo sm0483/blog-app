@@ -26,7 +26,8 @@ const Register = () => {
     return (
         <div className="register-container ">
             <div className="container register-box">
-                <div className="mb-3">
+                <h3 className="text-center">Register</h3>  
+                <div className="mb-3 mt-4">
                     <label for="exampleFormControlInput1" className="form-label">Name</label>
                     <input type="text" className="form-control" id="exampleFormControlInput1" 
                     placeholder="June"
@@ -53,11 +54,11 @@ const Register = () => {
                     />
                 </div>
                 
-                <div className="mb-3 d-flex justify-content-center align-items-center flex-column">
+                <div className="mb-3 d-flex justify-content-center align-items-center flex-column mt-4">
                     <button className="btn-primary btn w-25"
                     onClick={saveUser}
                     >Register</button>
-                    <p>Already have an account? <Link to={'/login'}> Login</Link></p>
+                    <p className="mt-4">Already have an account? <Link to={'/login'}> Login</Link></p>
                 </div>
 
             </div>
