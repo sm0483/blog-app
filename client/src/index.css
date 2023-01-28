@@ -67,12 +67,6 @@ img{
     --grey-black:#414850;
 }
 
-/* .dark-color{
-  --white-head: #2b3945;
-  --white:#202c37;
-  --grey-white:#2b3945;
-} */
-
 .edit-btn {
   background-color:var(--dark-grey);
   color: white;
@@ -93,14 +87,7 @@ img{
 }
 
 
-/* .dark-color{
-  --Dark-Blue: #2b3945;
-  --Very-Dark-Blue: #202c37;
-  --Very-Dark-Blue-light: hsl(200, 15%, 8%);
-  --Dark-Gray-light-input: #858585;
-  --Very-Light-Gray: hsl(0, 0%, 98%);
-  --White: #ffffff;
-} */
+
 
 
 .navbar-bg-color{
@@ -374,3 +361,12 @@ img{
   font-size: 1.2rem;
 }
 
+.no-data{
+  min-height: 10rem;
+  font-size: 1.5rem;
+}
+
+.no-data a{
+  text-decoration: none;
+  
+}

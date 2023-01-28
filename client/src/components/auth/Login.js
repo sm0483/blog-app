@@ -5,17 +5,18 @@ import { useAuth } from "../../context/authContext.";
 import { ACTIONS } from "../../helper/Helper";
 import Save from "../common/Saved";
 
+
 const Login = () => {
     const navigate=useNavigate();
     const [email,setEmail]=useState("");
     const [password,setPassword]=useState("");
-    const [error,setError]=useState(false);
+    const [error,setError]=useState("");
     const {setAuthenticated,setToggle}=useAuth()
 
     const login=async()=>{
         try {
             if(!email || !password) {
-                setError(true);
+                setError("Field can't be empty");
                 return;
             }
             const response=await loginUser({email,password});
@@ -24,13 +25,21 @@ const Login = () => {
             setAuthenticated(true);
             setToggle((value)=>!value)
         } catch (error) {
-            setError(error.message)
+            setError("Wrong Password or Email")
         }
     }
 
     
     return (
         <div className="register-container ">
+            {   error && (
+                <div className="position-absolute top-0 pt-5
+                  start-0 w-100 d-flex justify-content-center"
+                              onMouseDown={()=>setError("")}
+                     >
+                    <Save message={error} flag={ACTIONS.ERROR}/>
+                </div>)
+            }
             <div className="container register-box">
                 <h3 className="text-center">Login</h3>
                 <div className="mb-3 mt-4">
