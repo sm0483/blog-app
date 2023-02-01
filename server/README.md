@@ -237,8 +237,8 @@ A rest api for blog application.
 > {
 >    "_id": "63d55db2136d26caf23c7152",
 >    "blogTitle": "Why Growth Requires Struggle",
->    "blogData": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum"
-    >    "imageUrl": "http://res.cloudinary.com/65765gdfgfdg/image/upload/v1674927537/eyquduhqe29wdhvhqze8.jpg",
+>    "blogData": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum",
+>    "imageUrl": "http://res.cloudinary.com/65765gdfgfdg/image/upload/v1674927537/eyquduhqe29wdhvhqze8.jpg",
 >    "authorId": "63d55d30d541f77d001c097b",
 >    "authorName": "name-x0",
 >    "createdAt": "2023-01-28T17:38:58.256Z",
