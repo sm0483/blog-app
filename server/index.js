@@ -8,7 +8,9 @@ const cors = require("cors");
 const {connectDb} = require("./config/db");
 const fileUpload = require('express-fileupload');
 const cookieParser = require("cookie-parser");
-
+const xss=require('xss-clean');
+const helmet=require('helmet');
+const rateLimit=require('express-rate-limit')
 
 
 
@@ -43,13 +45,20 @@ const corsOptions = {
 };
 
 
+
 //routes
 const blogRoute = require("./routes/blogRoute");
 const userRoute=require('./routes/userRoute');
 const errorHandler = require("./middleware/err");
 const pageNotFound = require("./middleware/pageNotFound");
 
+app.use(xss());
+app.use(helmet());
 
+app.use(rateLimit({
+	windowMs: 15 * 60 * 1000, // 15 minutes
+	max: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
+}))
 
 app.use(fileUpload({
   useTempFiles:true,
@@ -62,6 +71,7 @@ app.use(fileUpload({
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser(process.env.COOKIE));
+
 
 
 // app.get('/api/v1/', auth, (req, res) => {
