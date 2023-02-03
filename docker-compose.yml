@@ -1,4 +1,4 @@
-version: '1'
+version: '3.8'
 
 services:
   client:
@@ -6,9 +6,20 @@ services:
     container_name: client
     ports:
       - "3000:3000"
+    depends_on:
+      - server  
+    networks:
+     - app-network 
+
   server:
     build: ./server
     container_name: server
     ports:
-      - "5000:5000"    
+      - "5000:5000"
+    restart: always  
+    networks:
+      - app-network
 
+networks:
+  app-network:
+    driver: bridge
