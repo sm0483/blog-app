@@ -4,44 +4,14 @@ const path = require("path");
 const dotenv = require("dotenv");
 const root_dir = __dirname.split('src')[0]
 dotenv.config({ path: path.join(root_dir, `.env`) });
-const cors = require("cors");
 const {connectDb} = require("./config/db");
 const fileUpload = require('express-fileupload');
 const cookieParser = require("cookie-parser");
+const morgan=require('morgan');
 
 
 
-
-
-
-
-
-
-// cors
-const whitelist = [
-  "http://127.0.0.1:3000",
-  "http://localhost:3000",
-  "http://localhost:3000/",
-];
-
-const corsOptions = {
-  origin(origin, callback) {
-    if (!origin) {
-      return callback(null, true);
-    }
-    if (whitelist.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-  credentials: true, //access-control-allow-credentials:true
-  optionSuccessStatus: 200,
-  methods: ["GET", "POST", "DELETE", "UPDATE", "PUT", "PATCH"],
-  // allowedHeaders: "*",
-  // "Access-Control-Request-Headers": "*",
-};
-
+app.use(morgan('dev'));
 
 //routes
 const blogRoute = require("./routes/blogRoute");
@@ -59,7 +29,7 @@ app.use(fileUpload({
 
 
 
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser(process.env.COOKIE));
 
@@ -89,9 +59,9 @@ app.listen(port, () => console.log(`http://127.0.0.1:${port}`));
 
 
 
-// app.use("/api/v1/",);
-app.use("/blog",blogRoute);
-app.use("/user",userRoute)
+// app.use("",);
+app.use("/api/v1/blog",blogRoute);
+app.use("/api/v1/user",userRoute)
 
 
 app.use(errorHandler);

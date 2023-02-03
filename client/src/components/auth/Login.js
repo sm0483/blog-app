@@ -20,6 +20,7 @@ const Login = () => {
                 return;
             }
             const response=await loginUser({email,password});
+            console.log(response);
             setHead(response.data.accessToken);
             if(response.status===200) navigate('/');
             setAuthenticated(true);
